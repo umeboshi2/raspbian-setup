@@ -1,0 +1,26 @@
+#!/bin/bash
+set -e
+
+# start by removing unwanted packages
+
+if ! [ -f stamp-removal ]; then 
+    apt-get -y remove lxde lxde-core || true
+    apt-get -y remove plymouth leafpad || true
+    sudo apt-get autoremove
+    touch stamp-removal
+fi
+
+
+
+
+if ! [ -f stamp-update ]; then 
+    apt-get update && touch stamp-update
+fi
+
+if ! [ -f stamp-upgrade ]; then
+    apt-get -y upgrade && touch stamp-upgrade
+fi
+
+
+apt-get -y install emacs23
+
