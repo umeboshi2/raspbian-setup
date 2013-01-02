@@ -4,8 +4,8 @@ set -e
 # start by removing unwanted packages
 if ! [ -f stamp-removal ]; then 
     apt-get -y remove lxde lxde-core || true
-    apt-get -y remove plymouth leafpad || true
-    sudo apt-get autoremove
+    apt-get -y remove plymouth leafpad pistore || true
+    sudo apt-get -y autoremove
     touch stamp-removal
 fi
 
@@ -20,19 +20,20 @@ if ! [ -f stamp-upgrade ]; then
 fi
 
 # install admin tools first (use etckeeper to keep track of config)
+# (these packages are optional)
 if ! [ -f stamp-admin ]; then
     admin="etckeeper iotop reprepro"
     apt-get -y install $admin && touch stamp-admin
 fi
 
-# install my handy dandy tools
+# install my handy dandy tools (all of these are optional)
 if ! [ -f stamp-mytools ]; then
     mytools="emacs23 rsync devscripts xxdiff-scripts screen rdiff-backup most"
     mytools="$mytools keychain"
     apt-get -y install $mytools && touch stamp-mytools
 fi
 
-# install services
+# install services (gkrellmd is optional)
 if ! [ -f stamp-servers ]; then
     servers="apache2 libapache2-mod-wsgi postgresql gkrellmd"
     apt-get -y install $servers && touch stamp-servers
@@ -52,4 +53,5 @@ fi
 
 
 
+rm /var/cache/apt/archives/*.deb -f
 

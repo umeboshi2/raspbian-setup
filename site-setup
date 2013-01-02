@@ -69,7 +69,7 @@ WSGIApplicationGroup %{GLOBAL}
 WSGIPassAuthorization On
 WSGIDaemonProcess pyramid user=$USER group=staff threads=4 \
    python-path=$sitepkgs
-WSGIScriptAlias /myapp $envdir/trumpet.wsgi
+WSGIScriptAlias / $envdir/trumpet.wsgi
 
 <Directory $envdir>
   WSGIProcessGroup pyramid
@@ -77,3 +77,6 @@ WSGIScriptAlias /myapp $envdir/trumpet.wsgi
   Allow from all
 </Directory>
 EOF
+
+sudo cp wsgi.conf /etc/apache2/conf.d
+sudo apachectl restart
