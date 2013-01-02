@@ -10,9 +10,6 @@ if ! [ -f stamp-removal ]; then
     touch stamp-removal
 fi
 
-
-
-
 if ! [ -f stamp-update ]; then 
     apt-get update && touch stamp-update
 fi
@@ -22,5 +19,23 @@ if ! [ -f stamp-upgrade ]; then
 fi
 
 
-apt-get -y install emacs23
+if ! [ -f stamp-mytools ]; then
+    mytools="emacs23 rsync devscripts xxdiff-scripts screen rdiff-backup most"
+    apt-get -y install $mytools && touch stamp-mytools
+fi
+
+
+
+if ! [ -f stamp-servers ]; then
+    servers="apache2 postgresql gkrellmd"
+    apt-get -y install $servers && touch stamp-servers
+fi
+
+
+if ! [ -f stamp-admin ]; then
+    admin="etckeeper"
+    apt-get -y install $admin && touch stamp-admin
+fi
+
+
 

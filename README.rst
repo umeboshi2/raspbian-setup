@@ -1,6 +1,12 @@
 raspbian-setup
 ==============
 
+Introduction
+-----------------
+
+The Raspberry Pi is a nifty little machine that can be used for many 
+different purposes.
+
 Initial Stuff
 ---------------------
 
@@ -17,4 +23,8 @@ Initial Stuff
 - sudo apt-get install git
 
 - git clone https://github.com/umeboshi2/raspbian-setup.git
+
+- cd raspbian-setup
+
+- sudo ./initial-setup
 
