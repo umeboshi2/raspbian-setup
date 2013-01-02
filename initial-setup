@@ -21,21 +21,38 @@ fi
 
 if ! [ -f stamp-mytools ]; then
     mytools="emacs23 rsync devscripts xxdiff-scripts screen rdiff-backup most"
+    mytools="$mytools keychain"
     apt-get -y install $mytools && touch stamp-mytools
 fi
 
 
 
 if ! [ -f stamp-servers ]; then
-    servers="apache2 postgresql gkrellmd"
+    servers="apache2 libapache2-mod-wsgi postgresql gkrellmd"
     apt-get -y install $servers && touch stamp-servers
 fi
 
 
 if ! [ -f stamp-admin ]; then
-    admin="etckeeper"
+    admin="etckeeper iotop"
     apt-get -y install $admin && touch stamp-admin
 fi
+
+
+
+
+if ! [ -f stamp-python ]; then
+    python="python-dev virtualenvwrapper"
+    apt-get -y install $python && touch stamp-python
+fi
+
+
+
+if ! [ -f stamp-libdevel ]; then
+    libdevel="libpq-dev"
+    apt-get -y install $libdevel && touch stamp-libdevel
+fi
+
 
 
 

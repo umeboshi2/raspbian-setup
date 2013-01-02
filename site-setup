@@ -1,0 +1,79 @@
+#!/bin/bash
+set -e
+
+SITEDIR=~/site
+ENVDIR=trumpetenv
+
+
+here=`pwd`
+pushd ~/
+
+if ! [ -d SITEDIR ]; then
+    mkdir -p $SITEDIR
+fi
+
+pushd $SITEDIR
+
+if ! [ -d $ENVDIR ]; then
+    virtualenv --no-site-packages $ENVDIR
+fi
+
+source $ENVDIR/bin/activate
+
+
+# workaround for install problem with paste
+if ! [ -f $ENVDIR/.paste-install ]; then
+    for pkg in paste pastedeploy pastescript; do
+	pip install $pkg
+    done
+    touch $ENVDIR/.paste-install
+fi
+
+if ! [ -d leaflet ]; then
+    git clone https://github.com/umeboshi2/leaflet.git
+fi
+
+if ! [ -d trumpet ]; then
+    git clone https://github.com/umeboshi2/trumpet.git
+fi
+
+
+pushd trumpet
+python setup.py develop
+trumpetdir=`pwd`
+popd
+
+# these instructions taken from
+# http://docs.pylonsproject.org/projects/pyramid/en/1.4-branch/tutorials/modwsgi/index.html
+pushd $ENVDIR
+
+touch trumpet.wsgi
+cat <<EOF > trumpet.wsgi
+from pyramid.paster import get_app, setup_logging
+ini_path = '$trumpetdir/demo.ini'
+setup_logging(ini_path)
+application = get_app(ini_path, 'main')
+EOF
+chmod 755 trumpet.wsgi
+
+envdir=`pwd`
+sitepkgs=$envdir/lib/python2.7/site-packages
+
+
+
+cat <<EOF > wsgi.conf
+# Use only 1 Python sub-interpreter.  Multiple sub-interpreters
+# play badly with C extensions.  See
+# http://stackoverflow.com/a/10558360/209039
+WSGIApplicationGroup %{GLOBAL}
+WSGIPassAuthorization On
+WSGIDaemonProcess pyramid user=$USER group=staff threads=4 \
+   python-path=$sitepkgs
+WSGIScriptAlias /myapp $envdir/trumpet.wsgi
+
+<Directory $envdir>
+  WSGIProcessGroup pyramid
+  Order allow,deny
+  Allow from all
+</Directory>
+EOF
