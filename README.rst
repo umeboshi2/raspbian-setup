@@ -7,11 +7,11 @@ Introduction
 The Raspberry Pi is a nifty little machine that can be used for many 
 different purposes.
 
-I was given one of these as a Christmas present, and decided to use it as a small 
-network appliance.  I have yet to actually use the video interface on the machine, and 
-instead, I primarily use ssh over ethernet to control the device.  These instructions are 
-written with this in mind, however things should work similar using local access to the 
-device.
+I was given one of these as a Christmas present, and decided to use it 
+as a small network appliance.  I have yet to actually use the video interface 
+on the machine, and instead, I primarily use ssh over ethernet to control the 
+device.  These instructions are written with this in mind, however things 
+should work similar using local access to the device.
 
 Initial Stuff
 ---------------------

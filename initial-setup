@@ -55,6 +55,12 @@ if ! [ -f stamp-libdevel ]; then
     apt-get -y install $libdevel && touch stamp-libdevel
 fi
 
+# install necessary python packages
+if ! [ -f stamp-morepython ]; then
+    morepython="python-mechanize python-bs4"
+    apt-get -y install $morepython && touch stamp-morepython
+fi
+
 
 
 rm /var/cache/apt/archives/*.deb -f
