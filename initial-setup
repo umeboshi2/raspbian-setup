@@ -3,8 +3,11 @@ set -e
 
 # start by removing unwanted packages
 if ! [ -f stamp-removal ]; then 
-    apt-get -y remove lxde lxde-core || true
+    apt-get -y remove lxde lxde-core lxde-common lxpanel lxinput lxsession-edit lxshortcut lxtask obconf openbox xarchiver lxappearance || true
     apt-get -y remove plymouth leafpad pistore || true
+    xinput="xserver-xorg-input-all xserver-xorg-input-evdev xserver-xorg-input-synaptics"
+    apt-get -y remove xserver-xorg xinit libmtdev1 lightdm $xinput || true
+    apt-get -y remove xserver-xorg-video-fbdev || true
     sudo apt-get -y autoremove
     touch stamp-removal
 fi
