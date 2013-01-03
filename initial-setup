@@ -8,6 +8,7 @@ if ! [ -f stamp-removal ]; then
     xinput="xserver-xorg-input-all xserver-xorg-input-evdev xserver-xorg-input-synaptics"
     apt-get -y remove xserver-xorg xinit libmtdev1 lightdm $xinput || true
     apt-get -y remove xserver-xorg-video-fbdev || true
+    apt-get -y remove galculator wpagui || true
     sudo apt-get -y autoremove
     touch stamp-removal
 fi
