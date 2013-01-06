@@ -13,7 +13,10 @@ requires = [
     'pyramid_tm',
     'pyramid_debugtoolbar',
     'zope.sqlalchemy',
+    'trumpet>=0.1.1dev', # pull from github
+    'hubby>=0.0dev',   # pull from github
     'waitress',
+    'Kotti',
     ]
 
 setup(name='plum',
@@ -41,4 +44,8 @@ setup(name='plum',
       [console_scripts]
       initialize_plum_db = plum.scripts.initializedb:main
       """,
+      dependency_links=[
+        'https://github.com/umeboshi2/trumpet/archive/master.tar.gz#egg=trumpet-0.1.1dev',
+        'https://github.com/umeboshi2/hubby/archive/master.tar.gz#egg=hubby-0.0dev',
+        ],
       )
