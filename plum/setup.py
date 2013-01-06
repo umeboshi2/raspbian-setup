@@ -17,6 +17,9 @@ requires = [
     'hubby>=0.0dev',   # pull from github
     'waitress',
     'Kotti',
+    'facebook-sdk',
+    'ipython',
+    'twill',
     ]
 
 setup(name='plum',
