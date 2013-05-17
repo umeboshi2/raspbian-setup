@@ -26,7 +26,7 @@ fi
 # install admin tools first (use etckeeper to keep track of config)
 # (these packages are optional)
 if ! [ -f stamp-admin ]; then
-    admin="etckeeper iotop reprepro"
+    admin="etckeeper iotop reprepro ecryptfs-utils"
     apt-get -y install $admin && touch stamp-admin
 fi
 
